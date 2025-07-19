@@ -2,9 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const App = () => {
+  const [ipAddress, setIpAddress] = useState("");
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/ip")
+      .then((res) => {
+        setIpAddress(res.data.ip);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const reduceVolume = async () => {
     axios
-      .get("http://192.168.116.105:3000/volume/down")
+      .get(`http://${ipAddress}:3000/volume/down`)
       .then((res) => {
         console.log(res);
       })
@@ -15,7 +24,7 @@ const App = () => {
 
   const increaseVolume = async () => {
     axios
-      .get("http://192.168.116.105:3000/volume/up")
+      .get(`http://${ipAddress}:3000/volume/up`)
       .then((res) => {
         console.log(res);
       })
@@ -23,7 +32,6 @@ const App = () => {
         console.error(err);
       });
   };
-  useEffect(() => {}, []);
   return (
     <>
       <div>
