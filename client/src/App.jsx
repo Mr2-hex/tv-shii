@@ -11,27 +11,40 @@ const App = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+
   const reduceVolume = async () => {
-    axios
-      .get(`http://${ipAddress}:3000/volume/down`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (!ipAddress) {
+      console.log("Not getting IP address");
+      return;
+    } else {
+      axios
+        .get(`http://${ipAddress}:3000/volume/down`)
+        .then((res) => {
+          console.log(res);
+          console.log("This is your IpAddress", ipAddress);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
 
   const increaseVolume = async () => {
-    axios
-      .get(`http://${ipAddress}:3000/volume/up`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (!ipAddress) {
+      console.log("Not getting IP address");
+      return;
+    } else {
+      axios
+        .get(`http://${ipAddress}:3000/volume/up`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   };
+
   return (
     <>
       <div>
